@@ -1,0 +1,35 @@
+{
+  "name": "resource-sentry",
+  "version": "0.1.0",
+  "description": "Bring static resources to JavaScript.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha -r ./test/setup --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicolasSiver/resource-sentry.git"
+  },
+  "keywords": [
+    "resource",
+    "style",
+    "static",
+    "json",
+    "xml",
+    "scss",
+    "css",
+    "sass",
+    "less",
+    "text"
+  ],
+  "author": "Nicolas Siver (http://siver.im)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NicolasSiver/resource-sentry/issues"
+  },
+  "homepage": "https://github.com/NicolasSiver/resource-sentry#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
