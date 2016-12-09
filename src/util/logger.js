@@ -1,16 +1,18 @@
 const chalk   = require('chalk'),
       winston = require('winston');
 
+const loggerLevels = require('./logger-levels');
+
 const colors = {
-    'error'  : chalk.red,
-    'warn'   : chalk.yellow,
-    'info'   : chalk.magenta,
-    'verbose': chalk.white,
-    'debug'  : chalk.green,
-    'silly'  : chalk.gray
+    [loggerLevels.ERROR]  : chalk.red,
+    [loggerLevels.WARN]   : chalk.yellow,
+    [loggerLevels.INFO]   : chalk.magenta,
+    [loggerLevels.VERBOSE]: chalk.white,
+    [loggerLevels.DEBUG]  : chalk.green,
+    [loggerLevels.SILLY]  : chalk.gray
 };
 
-module.exports = function (category, level = 'silly') {
+module.exports = function (category, level = loggerLevels.SILLY) {
 
     function pad(value, length, padChar) {
         let result = value.toString();
