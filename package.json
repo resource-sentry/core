@@ -38,6 +38,7 @@
     "chokidar": "^1.6.1",
     "eventemitter3": "^2.0.2",
     "gonzales-pe": "^4.0.3",
+    "graceful-fs": "^4.1.11",
     "winston": "^2.3.0"
   }
 }
