@@ -1,47 +1,48 @@
 {
-  "name": "resource-sentry",
-  "version": "0.1.0",
-  "description": "Bring static resources to JavaScript.",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "mocha -r ./test/setup --recursive"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/NicolasSiver/resource-sentry.git"
-  },
-  "keywords": [
-    "resource",
-    "style",
-    "static",
-    "json",
-    "xml",
-    "scss",
-    "css",
-    "sass",
-    "less",
-    "text"
-  ],
-  "author": "Nicolas Siver (http://siver.im)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/NicolasSiver/resource-sentry/issues"
-  },
-  "homepage": "https://github.com/NicolasSiver/resource-sentry#readme",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0"
-  },
-  "dependencies": {
-    "acorn": "^4.0.3",
-    "astring": "^0.8.0",
-    "async": "^2.1.4",
-    "chalk": "^1.1.3",
-    "chokidar": "^1.6.1",
-    "eventemitter3": "^2.0.2",
-    "gonzales-pe": "^4.0.3",
-    "graceful-fs": "^4.1.11",
-    "lodash": "^4.17.2",
-    "winston": "^2.3.0"
-  }
+    "name": "resource-sentry",
+    "version": "0.1.0",
+    "description": "Bring static resources to JavaScript.",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node ./src/index.js",
+        "test": "mocha -r ./test/setup --recursive"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/NicolasSiver/resource-sentry.git"
+    },
+    "keywords": [
+        "resource",
+        "style",
+        "static",
+        "json",
+        "xml",
+        "scss",
+        "css",
+        "sass",
+        "less",
+        "text"
+    ],
+    "author": "Nicolas Siver (http://siver.im)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/NicolasSiver/resource-sentry/issues"
+    },
+    "homepage": "https://github.com/NicolasSiver/resource-sentry#readme",
+    "devDependencies": {
+        "chai": "4.1.2",
+        "mocha": "5.0.1"
+    },
+    "dependencies": {
+        "acorn": "5.5.0",
+        "astring": "1.2.0",
+        "async": "2.6.0",
+        "chalk": "2.3.1",
+        "chokidar": "2.0.2",
+        "eventemitter3": "3.0.1",
+        "gonzales-pe": "4.2.3",
+        "graceful-fs": "^4.1.11",
+        "lodash": "4.17.5",
+        "winston": "2.4.0"
+    }
 }
