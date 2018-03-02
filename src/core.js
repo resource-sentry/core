@@ -1,28 +1,44 @@
 const async = require('async');
 
-const logger       = require('./util/logger')('Core'),
+const Conductor    = require('./conductor'),
+      Logger       = require('./util/logger'),
       watchService = require('./service/watch-service');
 
-function init(done) {
-    watchService.init(done);
-}
+module.exports = class Core {
+    constructor() {
+        this.logger = Logger(this.constructor.name);
+        this.conductor = new Conductor();
+    }
 
-function registerReaders(list, done) {
-    async.each(list, (reader, next) => {
-        reader.initWithWatch(watchService, next);
-    }, done);
-}
+    init(done) {
+        watchService.init(done);
+    }
 
-function start(config) {
-    async.waterfall([
-        async.apply(init),
-        async.apply(registerReaders, config.input)
-    ], error => {
-        if (error) {
-            return logger.error(error);
-        }
+    registerReaders(list, done) {
+        async.each(list, (reader, next) => {
+            async.parallel([
+                callback => reader.initWithWatch(watchService, callback),
+                callback => this.conductor.registerReader(reader, callback)
+            ], next);
+        }, done);
+    }
 
-    });
-}
+    registerWriter(writer, done) {
+        async.parallel([
+            callback => writer.init(callback),
+            callback => this.conductor.registerWriter(writer, callback)
+        ], done);
+    }
 
-module.exports = {start};
+    start({output, input}) {
+        async.series([
+            next => this.init(next),
+            next => this.registerWriter(output, next),
+            next => this.registerReaders(input, next)
+        ], error => {
+            if (error !== null) {
+                return this.logger.error(error);
+            }
+        });
+    }
+};

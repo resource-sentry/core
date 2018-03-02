@@ -20,7 +20,7 @@ module.exports = function (category, level = loggerLevels.SILLY) {
     }
 
     function repeat(char, times) {
-        if (times == 0) {
+        if (times === 0) {
             return '';
         } else if (times == 1) {
             return char;

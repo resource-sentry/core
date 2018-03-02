@@ -1,14 +1,18 @@
-const core       = require('./core'),
-      ScssReader = require('./reader/scss/scss-reader');
+const Core         = require('./core'),
+      Es2015Writer = require('./writer/es2015'),
+      ScssReader   = require('./reader/scss/scss-reader');
 
 global.DEBUG = true;
 
 const config = {
-    input: [
+    input : [
         new ScssReader({
             entry: './test.scss'
         })
-    ]
+    ],
+    output: new Es2015Writer({
+        path: './output'
+    })
 };
 
-core.start(config);
+new Core().start(config);
