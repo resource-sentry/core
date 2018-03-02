@@ -1,8 +1,9 @@
-const merge = require('lodash/merge');
-
-const Logger = require('./util/logger');
+const Logger       = require('./util/logger'),
+      ResourceData = require('./model/resource-data');
 
 const ReaderEvents = require('./model/reader-events');
+
+const {VALUE} = require('./model/categories');
 
 module.exports = class Conductor {
     constructor() {
@@ -33,7 +34,7 @@ module.exports = class Conductor {
     }
 
     registerReader(reader, done) {
-        this.readers.set(reader, {});
+        this.readers.set(reader, []);
         this.addReaderListeners(reader);
         done(null);
     }
@@ -46,22 +47,29 @@ module.exports = class Conductor {
     valuesDidChange(e) {
         let reader = e.target;
         let data = this.readers.get(reader);
-        data.values = merge({}, reader.getValues());
+        data[VALUE] = reader.getValues();
         process.nextTick(() => this.invalidate());
     }
 
     writeNow(done) {
-        let values = {};
+        let categoryData;
+        let categories = [VALUE];
+        let resourceData = new ResourceData();
 
         if (DEBUG) {
             this.logger.verbose('Writing data...');
         }
 
         this.readers.forEach((data, reader) => {
-            merge(values, data.values);
+            categories.forEach(category => {
+                categoryData = data[category];
+                if (categoryData !== undefined) {
+                    resourceData.appendData(category, categoryData);
+                }
+            });
         });
 
         this.dataPostponed = false;
-        this.writer.write({values}, done);
+        this.writer.write(resourceData.getOutput(), done);
     }
 };
