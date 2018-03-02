@@ -1,3 +1,4 @@
-/**
- * Created by Nicolas on 3/1/18.
- */
+module.exports = Object.freeze({
+    CATEGORY_SIZE: 4,
+    RESOURCE_SIZE: 20
+});
