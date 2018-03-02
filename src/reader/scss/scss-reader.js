@@ -33,12 +33,15 @@ module.exports = class ScssReader extends EventEmitter {
         async.waterfall([
             async.apply(fs.readFile, path.resolve(process.cwd(), entryPath), 'utf8'),
             (content, next) => {
+                let name, value;
                 let tree   = gonzales.parse(content, {syntax: 'scss'}),
-                    values = {};
+                    values = [];
 
                 tree.forEach('declaration', (child, index, parent) => {
                     if (containsDeep(child, 'variable') === true) {
-                        values[nodeToVariableName(child)] = nodeToVariableValue(child);
+                        name = nodeToVariableName(child);
+                        value = nodeToVariableValue(child);
+                        values.push({name, value});
                     }
                 });
 
