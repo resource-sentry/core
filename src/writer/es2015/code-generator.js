@@ -2,12 +2,12 @@ const {CATEGORY_SIZE, RESOURCE_SIZE} = require('../../model/constants');
 
 class CodeGenerator {
     constructor(categories) {
-        this.keyCodes = categories.map((values, category) => this.getKeyCodes(values, category));
+        this.categories = categories.map((values, category) => this.getKeyCodes(values, category));
     }
 
     convertVariableName(name) {
         return name
-            .replace(/(?!^)[A-Z]/g, '-$&')
+            .replace(/([a-z])([A-Z])/g, '$1-$2')
             .replace(/-/g, '_')
             .toUpperCase();
     }
