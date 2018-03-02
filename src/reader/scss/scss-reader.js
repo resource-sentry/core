@@ -37,7 +37,7 @@ module.exports = class ScssReader extends EventEmitter {
                     values = {};
 
                 tree.forEach('declaration', (child, index, parent) => {
-                    if (containsDeep(child, 'variable')) {
+                    if (containsDeep(child, 'variable') === true) {
                         values[nodeToVariableName(child)] = nodeToVariableValue(child);
                     }
                 });
