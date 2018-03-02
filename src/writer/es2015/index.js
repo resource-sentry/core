@@ -5,9 +5,12 @@ const acorn        = require('acorn'),
       fs           = require('graceful-fs'),
       path         = require('path');
 
-const Logger = require('../../util/logger');
+const CodeGenerator = require('./code-generator'),
+      Logger        = require('../../util/logger');
 
-module.exports = class Es2015Writer extends EventEmitter {
+const {CATEGORY_SIZE, RESOURCE_SIZE} = require('../../model/constants');
+
+class Es2015Writer extends EventEmitter {
     constructor(config) {
         super();
         this.logger = Logger(this.constructor.name);
@@ -45,25 +48,42 @@ module.exports = class Es2015Writer extends EventEmitter {
     }
 
     init(done) {
-        async.parallel([
-            next => {
-                this.outputPath = path.resolve(process.cwd(), this.config.path, 'rs.js');
-                next(null);
-            },
-            next => this.getTemplate(next)
-        ], done);
+        this.outputPath = path.resolve(process.cwd(), this.config.path, 'rs.js');
+        this.getTemplate(done);
     }
-
 
     isWriting() {
         return this.writing;
     }
 
-    write({values}, done) {
-        this.writing = true;
-        fs.writeFile(this.outputPath, this.template, {encoding: 'utf8'}, error => {
-            this.writing = false;
-            done(error);
+    write(content, done) {
+        async.waterfall([
+            next => {
+                this.writing = true;
+                next(null, this.template);
+            },
+            (template, next) => {
+                let head = template
+                    .replace('%CATEGORY_SIZE%', CATEGORY_SIZE)
+                    .replace('%RESOURCE_SIZE%', RESOURCE_SIZE);
+                next(null, head);
+            },
+            (template, next) => {
+                let generator = new CodeGenerator(content);
+                let body = template
+                    .replace('%KEYS%', generator.getKeys());
+                next(null, body);
+            }
+        ], (error, data) => {
+            if (error !== null) {
+                return done(error);
+            }
+            fs.writeFile(this.outputPath, data, {encoding: 'utf8'}, error => {
+                this.writing = false;
+                done(error);
+            });
         });
     }
-};
+}
+
+module.exports = Es2015Writer;
