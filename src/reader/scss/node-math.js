@@ -17,7 +17,7 @@ class NodeMath {
             }
             return variable;
         } else if (node.length > 0) {
-            return this.getNumericValue(node.first());
+            return this.getLatestNode(node.first());
         } else {
             return node;
         }
@@ -44,6 +44,12 @@ class NodeMath {
         for (i; i < len; ++i) {
             currentNode = tree.get(i);
             finalNode = this.getLatestNode(currentNode);
+
+            // Can not resolve variable reference to compute
+            if (finalNode === Variables.UNDETERMINED) {
+                return Variables.UNDETERMINED;
+            }
+
             // Mark all formula as a dimension
             if (currentNode.type === ValueTypes.DIMENSION || finalNode.type === ValueTypes.DIMENSION) {
                 dimensions = true;
