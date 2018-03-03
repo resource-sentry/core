@@ -9,9 +9,9 @@ class Ast {
         this.dimensions = new Dimensions();
         this.nodeMath = new NodeMath();
         this.detectionChain = [
+            tree => this.nodeMath.getValue(tree),
             tree => this.dimensions.getValue(tree),
-            tree => this.colorModule.getValue(tree),
-            tree => this.nodeMath.getValue(tree)
+            tree => this.colorModule.getValue(tree)
         ];
     }
 

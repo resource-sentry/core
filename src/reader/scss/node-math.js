@@ -1,10 +1,18 @@
 const ValueTypes = require('./value-types');
 
 class NodeMath {
+    getNumericValue(node) {
+        if (node.length > 0) {
+            return this.getNumericValue(node.first());
+        } else {
+            return node.content;
+        }
+    }
+
     getValue(tree) {
         let value = null;
 
-        if (tree.contains(ValueTypes.OPERATOR) === true) {
+        if (tree.contains(ValueTypes.OPERATOR) === true && tree.contains(ValueTypes.IDENTIFIER) === false) {
             value = this.parseFormula(tree);
         }
 
@@ -12,28 +20,26 @@ class NodeMath {
     }
 
     parseFormula(tree) {
-        let node, type;
+        let node;
         let formula = '';
         let i = 0, len = tree.length;
-        let value = null;
+        let dimensions = false;
 
         for (i; i < len; ++i) {
             node = tree.get(i);
-            type = node.type;
 
-            // Exit formula as soon Identifier found
-            if (type === ValueTypes.IDENTIFIER) {
-                break;
-            } else {
-                formula += node.content;
+            // Mark all formula as a dimension
+            if (node.type === ValueTypes.DIMENSION) {
+                dimensions = true;
             }
+
+            formula += this.getNumericValue(node);
         }
 
-        if (type === ValueTypes.NUMBER) {
-            value = {type, content: new Function('return ' + formula)()};
-        }
-
-        return value;
+        return {
+            type   : (dimensions === true) ? ValueTypes.DIMENSION : ValueTypes.NUMBER,
+            content: new Function('return ' + formula)()
+        };
     }
 }
 
