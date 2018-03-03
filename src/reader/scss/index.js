@@ -4,14 +4,15 @@ const async        = require('async'),
       gonzales     = require('gonzales-pe'),
       path         = require('path');
 
-const ReaderEvents = require('../../model/reader-events');
 const {containsDeep, nodeToVariableName, nodeToVariableValue} = require('../../util/ast');
+const ReaderEvents = require('../../model/reader-events');
+const ValueParser = require('./value-parser');
 
-module.exports = class ScssReader extends EventEmitter {
+class ScssReader extends EventEmitter {
     constructor(config) {
         super();
         this.config = config;
-        this.data = {};
+        this.categories = [];
         this.eventTarget = {target: this};
     }
 
@@ -19,8 +20,8 @@ module.exports = class ScssReader extends EventEmitter {
         done(null);
     }
 
-    getValues() {
-        return this.data.values;
+    getAllCategories() {
+        return this.categories;
     }
 
     initWithWatch(service, done) {
@@ -34,21 +35,23 @@ module.exports = class ScssReader extends EventEmitter {
             async.apply(fs.readFile, path.resolve(process.cwd(), entryPath), 'utf8'),
             (content, next) => {
                 let name, value;
-                let tree   = gonzales.parse(content, {syntax: 'scss'}),
-                    values = [];
+                let parser = new ValueParser();
+                let tree = gonzales.parse(content, {syntax: 'scss'});
 
                 tree.forEach('declaration', (child, index, parent) => {
                     if (containsDeep(child, 'variable') === true) {
                         name = nodeToVariableName(child);
                         value = nodeToVariableValue(child);
-                        values.push({name, value});
+                        parser.parse(name, value);
                     }
                 });
 
-                this.data.values = values;
-                this.emit(ReaderEvents.VALUES_DID_CHANGE, this.eventTarget);
+                this.categories = parser.getCategories();
+                this.emit(ReaderEvents.DATA_DID_CHANGE, this.eventTarget);
                 next(null);
             }
         ], done);
     }
-};
+}
+
+module.exports = ScssReader;
