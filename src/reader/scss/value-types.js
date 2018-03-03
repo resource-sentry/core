@@ -7,5 +7,6 @@ module.exports = Object.freeze({
     PARENTHESES: 'parentheses',
     PERCENTAGE : 'percentage',
     STRING     : 'string',
-    VALUE      : 'value'
+    VALUE      : 'value',
+    VARIABLE   : 'variable'
 });
