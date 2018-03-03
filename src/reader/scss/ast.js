@@ -2,17 +2,22 @@ const ColorModule = require('./color-module');
 const Dimensions = require('./dimensions');
 const NodeMath = require('./node-math');
 const ValueTypes = require('./value-types');
+const Variables = require('./variables');
 
 class Ast {
     constructor() {
         this.colorModule = new ColorModule();
         this.dimensions = new Dimensions();
         this.nodeMath = new NodeMath();
+
         this.detectionChain = [
             tree => this.nodeMath.getValue(tree),
             tree => this.dimensions.getValue(tree),
-            tree => this.colorModule.getValue(tree)
+            tree => this.colorModule.getValue(tree),
+            tree => this.getSimpleNodeValue(tree)
         ];
+
+        this.variables = new Variables();
     }
 
     containsDeep(tree, type) {
@@ -40,6 +45,16 @@ class Ast {
         return null;
     }
 
+    getSimpleNodeValue(tree) {
+        let result = tree.first();
+
+        if (result.is(ValueTypes.VARIABLE) === true) {
+            result = this.variables.getVariable(result.content.toString());
+        }
+
+        return result;
+    }
+
     getValue(tree) {
         let i = 0, len = this.detectionChain.length;
         let value = null;
@@ -55,6 +70,15 @@ class Ast {
         return value;
     }
 
+    nodeToVariable(tree) {
+        let name = this.nodeToVariableName(tree);
+        let value = this.nodeToVariableValue(tree);
+
+        this.variables.setVariable(name, value);
+
+        return {name, value};
+    }
+
     nodeToVariableName(tree) {
         let node = this.getDeepNodeByType(tree, 'variable');
         if (node !== null) {
@@ -65,25 +89,28 @@ class Ast {
     nodeToVariableValue(tree) {
         console.log('-----');
         console.dir(tree, {depth: 8});
-        let node = this.getDeepNodeByType(tree, ValueTypes.VALUE);
         let value;
+        let node = this.getDeepNodeByType(tree, ValueTypes.VALUE);
+        let result = null;
 
         if (node !== null) {
             value = this.getValue(node);
 
-            // Values is not found, fallback to first element
-            if (value === null) {
-                value = node.first();
-            }
-
             console.log('----- VALUE -----');
             console.log(value);
             console.log('-----');
-            return {
-                value: value.content,
-                type : value.type
+
+            if (value.hasOwnProperty('content') === true) {
+                result = {
+                    value: value.content,
+                    type : value.type
+                };
+            } else {
+                result = value;
             }
         }
+
+        return result;
     }
 
     openParentheses(tree) {
