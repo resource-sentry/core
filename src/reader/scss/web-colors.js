@@ -10,7 +10,6 @@
  */
 let colors = {};
 
-// Basic
 colors['black'] = '#000000';
 colors['silver'] = '#C0C0C0';
 colors['gray'] = '#808080';
@@ -27,7 +26,5 @@ colors['navy'] = '#000080';
 colors['blue'] = '#0000FF';
 colors['teal'] = '#008080';
 colors['aqua'] = '#00FFFF';
-
-// Extended. X11
 
 module.exports = Object.freeze(colors);
