@@ -12,7 +12,9 @@ class NodeMath {
     getValue(tree) {
         let value = null;
 
-        if (tree.contains(ValueTypes.OPERATOR) === true && tree.contains(ValueTypes.IDENTIFIER) === false) {
+        if (tree.contains(ValueTypes.OPERATOR) === true
+            && tree.contains(ValueTypes.IDENTIFIER) === false
+            && tree.contains(ValueTypes.STRING) === false) {
             value = this.parseFormula(tree);
         }
 
