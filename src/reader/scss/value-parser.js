@@ -18,6 +18,9 @@ class ValueParser {
 
     parse(name, valueData) {
         switch (valueData.type) {
+            case ValueTypes.DIMENSION:
+                this.addValue(name, valueData.value, Categories.DIMENSION);
+                break;
             case ValueTypes.NUMBER:
                 this.addValue(name, valueData.value, Categories.VALUE);
                 break;

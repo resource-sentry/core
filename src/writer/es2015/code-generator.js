@@ -17,6 +17,7 @@ class CodeGenerator {
     convertVariableValue(data, category) {
         switch (category) {
             case Categories.VALUE:
+            case Categories.DIMENSION:
                 return parseFloat(data);
             case Categories.COLOR:
                 return parseInt(data, 16);

@@ -1,11 +1,14 @@
 const ColorModule = require('./color-module');
+const Dimensions = require('./dimensions');
 const NodeMath = require('./node-math');
 
 class Ast {
     constructor() {
         this.colorModule = new ColorModule();
+        this.dimensions = new Dimensions();
         this.nodeMath = new NodeMath();
         this.detectionChain = [
+            tree => this.dimensions.getValue(tree),
             tree => this.colorModule.getValue(tree),
             tree => this.nodeMath.getValue(tree)
         ];
