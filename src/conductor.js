@@ -5,7 +5,7 @@ const ReaderEvents = require('./model/reader-events');
 
 const {VALUE} = require('./model/categories');
 
-module.exports = class Conductor {
+class Conductor {
     constructor() {
         this.logger = Logger(this.constructor.name);
         this.readers = new Map();
@@ -73,3 +73,5 @@ module.exports = class Conductor {
         this.writer.write(resourceData.getOutput(), done);
     }
 };
+
+module.exports = Conductor;

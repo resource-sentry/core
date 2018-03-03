@@ -3,7 +3,8 @@ const acorn        = require('acorn'),
       async        = require('async'),
       EventEmitter = require('eventemitter3'),
       fs           = require('graceful-fs'),
-      path         = require('path');
+      path         = require('path'),
+      prettier     = require('prettier');
 
 const CodeGenerator = require('./code-generator'),
       Logger        = require('../../util/logger');
@@ -74,7 +75,11 @@ class Es2015Writer extends EventEmitter {
                     .replace('%KEYS%', generator.getKeys())
                     .replace('%DATA%', generator.getData());
                 next(null, body);
-            }
+            },
+            (output, next) => next(null, prettier.format(output, {
+                bracketSpacing: false,
+                singleQuote   : true
+            }))
         ], (error, data) => {
             if (error !== null) {
                 return done(error);

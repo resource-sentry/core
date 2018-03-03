@@ -1,6 +1,5 @@
 const CategoryNames = require('../../model/category-names');
-const {CATEGORY_SIZE, RESOURCE_SIZE} = require('../../model/constants');
-
+const {RESOURCE_SIZE} = require('../../model/constants');
 
 class CodeGenerator {
     constructor(categories) {
