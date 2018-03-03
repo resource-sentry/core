@@ -2,16 +2,29 @@ const ValueTypes = require('./value-types');
 
 class Dimensions {
     getValue(tree) {
-        let node;
+        let node, type;
         let value = null;
-        let type = ValueTypes.DIMENSION;
 
-        if (tree.is(type) === true) {
+        if (this.isDimension(tree) === true) {
             node = tree.first();
-            value = {type, content: node.content};
+            type = node.type;
+
+            switch (type) {
+                case ValueTypes.DIMENSION:
+                    value = {type, content: node.content};
+                    break;
+                case ValueTypes.PERCENTAGE:
+                    value = {type, content: parseFloat(node.content) / 100};
+                    break;
+            }
         }
 
         return value;
+    }
+
+    isDimension(tree) {
+        let node = tree.first();
+        return node.is(ValueTypes.DIMENSION) === true || node.is(ValueTypes.PERCENTAGE) === true;
     }
 }
 

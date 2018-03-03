@@ -19,6 +19,7 @@ class ValueParser {
     parse(name, valueData) {
         switch (valueData.type) {
             case ValueTypes.DIMENSION:
+            case ValueTypes.PERCENTAGE:
                 this.addValue(name, valueData.value, Categories.DIMENSION);
                 break;
             case ValueTypes.NUMBER:
