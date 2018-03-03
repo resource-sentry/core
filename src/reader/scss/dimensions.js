@@ -11,7 +11,7 @@ class Dimensions {
 
             switch (type) {
                 case ValueTypes.DIMENSION:
-                    value = {type, content: node.content};
+                    value = {type, content: parseFloat(node.content)};
                     break;
                 case ValueTypes.PERCENTAGE:
                     value = {type, content: parseFloat(node.content) / 100};
