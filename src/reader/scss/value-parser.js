@@ -1,13 +1,20 @@
 const Categories = require('../../model/categories');
+const Logger = require('../../util/logger');
 const ValueTypes = require('./value-types');
 
 class ValueParser {
     constructor() {
+        this.logger = Logger(this.constructor.name);
         this.categories = [];
     }
 
     addValue(name, value, category) {
         let categoryData = this.categories[category] || [];
+
+        if (DEBUG) {
+            this.logger.verbose(`Register Value, name: "${name}", data: ${value}, category: ${category}`);
+        }
+
         categoryData.push({name, value});
         this.categories[category] = categoryData;
     }
