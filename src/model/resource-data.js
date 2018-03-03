@@ -3,7 +3,7 @@ class ResourceData {
         this.store = [];
     }
 
-    appendData(category, data) {
+    appendData(data, category) {
         let categoryData = this.store[category] || [];
 
         categoryData = categoryData.concat(data);
@@ -13,6 +13,12 @@ class ResourceData {
 
     getOutput() {
         return this.store;
+    }
+
+    mergeData(categories) {
+        categories.forEach((data, category) => {
+            this.appendData(data, category);
+        });
     }
 }
 

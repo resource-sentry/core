@@ -14,7 +14,7 @@ class CodeGenerator {
     }
 
     convertVariableValue(data) {
-        return parseFloat(data.value);
+        return parseFloat(data);
     }
 
     getData() {
