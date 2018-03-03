@@ -1,4 +1,6 @@
+const CategoryNames = require('../../model/category-names');
 const {CATEGORY_SIZE, RESOURCE_SIZE} = require('../../model/constants');
+
 
 class CodeGenerator {
     constructor(categories) {
@@ -37,7 +39,15 @@ class CodeGenerator {
     }
 
     getKeys() {
-        return 'keys';
+        let output = [];
+        let properties;
+
+        this.categories.forEach((category, code) => {
+            properties = category.map(({name, id}) => `${name}:${id}`);
+            output.push(`export let ${CategoryNames[code]} = {${properties}};`);
+        });
+
+        return output.join('\n');
     }
 }
 
