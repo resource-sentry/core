@@ -1,6 +1,6 @@
 const Categories = require('../../model/categories');
 const CategoryNames = require('../../model/category-names');
-const {RESOURCE_SIZE} = require('../../model/constants');
+const Constants = require('../../model/constants');
 
 class CodeGenerator {
     constructor(categories) {
@@ -44,7 +44,7 @@ class CodeGenerator {
 
         for (i; i < len; ++i) {
             valueDescription = values[i];
-            id = (category << RESOURCE_SIZE) + i;
+            id = (category << Constants.RESOURCE_SIZE) + i;
             name = this.convertVariableName(valueDescription.name);
             value = this.convertVariableValue(valueDescription.value, category);
             result.push({name, id, value});
