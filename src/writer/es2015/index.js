@@ -1,6 +1,4 @@
-const acorn        = require('acorn'),
-      astring      = require('astring'),
-      async        = require('async'),
+const async        = require('async'),
       EventEmitter = require('eventemitter3'),
       fs           = require('graceful-fs'),
       path         = require('path'),

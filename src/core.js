@@ -4,7 +4,7 @@ const Conductor    = require('./conductor'),
       Logger       = require('./util/logger'),
       watchService = require('./service/watch-service');
 
-module.exports = class Core {
+class Core {
     constructor() {
         this.logger = Logger(this.constructor.name);
         this.conductor = new Conductor();
@@ -41,4 +41,6 @@ module.exports = class Core {
             }
         });
     }
-};
+}
+
+module.exports = Core;

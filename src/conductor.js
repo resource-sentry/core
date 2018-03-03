@@ -72,6 +72,6 @@ class Conductor {
         this.dataPostponed = false;
         this.writer.write(resourceData.getOutput(), done);
     }
-};
+}
 
 module.exports = Conductor;
