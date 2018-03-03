@@ -1,6 +1,7 @@
 module.exports = Object.freeze({
     COLOR      : 'color',
     DIMENSION  : 'dimension',
+    IDENTIFIER : 'ident',
     NUMBER     : 'number',
     OPERATOR   : 'operator',
     PARENTHESES: 'parentheses',

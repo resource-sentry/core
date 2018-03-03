@@ -8,7 +8,7 @@ class ColorModule {
         let i = 0, len = tree.length;
 
         for (i; i < len; ++i) {
-            if (tree.get(i).is('ident') === true) {
+            if (tree.get(i).is(ValueTypes.IDENTIFIER) === true) {
                 result = i;
                 break;
             }
