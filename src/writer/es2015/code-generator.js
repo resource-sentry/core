@@ -1,3 +1,4 @@
+const Categories = require('../../model/categories');
 const CategoryNames = require('../../model/category-names');
 const {RESOURCE_SIZE} = require('../../model/constants');
 
@@ -13,8 +14,13 @@ class CodeGenerator {
             .toUpperCase();
     }
 
-    convertVariableValue(data) {
-        return parseFloat(data);
+    convertVariableValue(data, category) {
+        switch (category) {
+            case Categories.VALUE:
+                return parseFloat(data);
+            default:
+                return data;
+        }
     }
 
     getData() {
@@ -40,7 +46,7 @@ class CodeGenerator {
             valueDescription = values[i];
             id = (category << RESOURCE_SIZE) + i;
             name = this.convertVariableName(valueDescription.name);
-            value = this.convertVariableValue(valueDescription.value);
+            value = this.convertVariableValue(valueDescription.value, category);
             result.push({name, id, value});
         }
         return result;

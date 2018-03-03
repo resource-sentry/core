@@ -21,6 +21,9 @@ class ValueParser {
             case ValueTypes.NUMBER:
                 this.addValue(name, valueData.value, Categories.VALUE);
                 break;
+            case ValueTypes.STRING:
+                this.addValue(name, valueData.value, Categories.TEXT);
+                break;
         }
     }
 }

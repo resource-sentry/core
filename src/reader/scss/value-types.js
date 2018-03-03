@@ -1,3 +1,4 @@
 module.exports = Object.freeze({
-    NUMBER: 'number'
+    NUMBER: 'number',
+    STRING: 'string'
 });

@@ -9,7 +9,7 @@ let data = [
     %DATA%
 ];
 
-export function getValue(resourceId) {
+export function getResource(resourceId) {
     const category = (resourceId & CATEGORY_MASK) >> RESOURCE_SIZE;
     const resource = (resourceId & RESOURCE_MASK);
 

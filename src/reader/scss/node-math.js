@@ -9,7 +9,7 @@ class NodeMath {
                 type = node.type;
                 formula += node.content;
             });
-            
+
             value = {type, content: new Function('return ' + formula)()};
         }
 
