@@ -1,11 +1,25 @@
 const ValueTypes = require('./value-types');
+const Variables = require('./variables');
 
 class NodeMath {
-    getNumericValue(node) {
-        if (node.length > 0) {
+    constructor(variables) {
+        this.variables = variables;
+    }
+
+    getLatestNode(node) {
+        let variable;
+
+        if (node.is(ValueTypes.VARIABLE) === true) {
+            variable = this.variables.getVariable(node.content.toString(), false);
+            if (variable !== Variables.UNDETERMINED) {
+                // Copy a computation result to the content
+                variable.content = variable.value;
+            }
+            return variable;
+        } else if (node.length > 0) {
             return this.getNumericValue(node.first());
         } else {
-            return node.content;
+            return node;
         }
     }
 
@@ -22,20 +36,20 @@ class NodeMath {
     }
 
     parseFormula(tree) {
-        let node;
+        let currentNode, finalNode;
         let formula = '';
         let i = 0, len = tree.length;
         let dimensions = false;
 
         for (i; i < len; ++i) {
-            node = tree.get(i);
-
+            currentNode = tree.get(i);
+            finalNode = this.getLatestNode(currentNode);
             // Mark all formula as a dimension
-            if (node.type === ValueTypes.DIMENSION) {
+            if (currentNode.type === ValueTypes.DIMENSION || finalNode.type === ValueTypes.DIMENSION) {
                 dimensions = true;
             }
 
-            formula += this.getNumericValue(node);
+            formula += finalNode.content;
         }
 
         return {

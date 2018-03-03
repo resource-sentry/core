@@ -6,9 +6,11 @@ const Variables = require('./variables');
 
 class Ast {
     constructor() {
+        this.variables = new Variables();
+
         this.colorModule = new ColorModule();
         this.dimensions = new Dimensions();
-        this.nodeMath = new NodeMath();
+        this.nodeMath = new NodeMath(this.variables);
 
         this.detectionChain = [
             tree => this.nodeMath.getValue(tree),
@@ -16,8 +18,6 @@ class Ast {
             tree => this.colorModule.getValue(tree),
             tree => this.getSimpleNodeValue(tree)
         ];
-
-        this.variables = new Variables();
     }
 
     containsDeep(tree, type) {
