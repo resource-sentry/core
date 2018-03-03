@@ -71,7 +71,8 @@ class Es2015Writer extends EventEmitter {
             (template, next) => {
                 let generator = new CodeGenerator(content);
                 let body = template
-                    .replace('%KEYS%', generator.getKeys());
+                    .replace('%KEYS%', generator.getKeys())
+                    .replace('%DATA%', generator.getData());
                 next(null, body);
             }
         ], (error, data) => {

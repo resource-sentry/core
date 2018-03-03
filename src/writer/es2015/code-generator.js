@@ -19,7 +19,16 @@ class CodeGenerator {
     }
 
     getData() {
-        return 'data';
+        let output = [];
+        let properties;
+
+        this.categories.forEach((category, code) => {
+            properties = category.map(({id, value}) => `'${id}':${value}`);
+            output.push(`// ${CategoryNames[code]}`);
+            output.push(`{${properties}},`);
+        });
+
+        return output.join('\n');
     }
 
     getKeyCodes(values, category) {

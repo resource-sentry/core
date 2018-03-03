@@ -6,8 +6,7 @@ const RESOURCE_MASK = (1 << RESOURCE_SIZE) - 1;
 %KEYS%
 
 let data = [
-    // 0 - Values
-    [%VALUE_CONTENT%]
+    %DATA%
 ];
 
 export function getValue(resourceId) {
