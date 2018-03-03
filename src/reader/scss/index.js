@@ -4,7 +4,7 @@ const async        = require('async'),
       gonzales     = require('gonzales-pe'),
       path         = require('path');
 
-const {containsDeep, nodeToVariableName, nodeToVariableValue} = require('../../util/ast');
+const Ast = require('./ast');
 const ReaderEvents = require('../../model/reader-events');
 const ValueParser = require('./value-parser');
 
@@ -35,13 +35,14 @@ class ScssReader extends EventEmitter {
             async.apply(fs.readFile, path.resolve(process.cwd(), entryPath), 'utf8'),
             (content, next) => {
                 let name, value;
+                let ast = new Ast();
                 let parser = new ValueParser();
                 let tree = gonzales.parse(content, {syntax: 'scss'});
 
                 tree.forEach('declaration', (child, index, parent) => {
-                    if (containsDeep(child, 'variable') === true) {
-                        name = nodeToVariableName(child);
-                        value = nodeToVariableValue(child);
+                    if (ast.containsDeep(child, 'variable') === true) {
+                        name = ast.nodeToVariableName(child);
+                        value = ast.nodeToVariableValue(child);
                         parser.parse(name, value);
                     }
                 });

@@ -1,14 +1,27 @@
 class NodeMath {
-    constructor() {
+    getValue(tree) {
+        let formula = '';
+        let type = null;
+        let value = null;
 
+        if (this.isOperation(tree) === true) {
+            tree.forEach(node => {
+                type = node.type;
+                formula += node.content;
+            });
+            
+            value = {type, content: new Function('return ' + formula)()};
+        }
+
+        return value;
     }
 
-    static isOperation(tree) {
+    isOperation(tree) {
         let result = false;
         let i = 0, len = tree.length;
 
         for (i; i < len; ++i) {
-            if (tree.get(i).type === 'operator') {
+            if (tree.get(i).is('operator') === true) {
                 result = true;
                 break;
             }
@@ -16,3 +29,5 @@ class NodeMath {
         return result;
     }
 }
+
+module.exports = NodeMath;
