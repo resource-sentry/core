@@ -1,8 +1,14 @@
+const ColorModule = require('./color-module');
 const NodeMath = require('./node-math');
 
 class Ast {
     constructor() {
+        this.colorModule = new ColorModule();
         this.nodeMath = new NodeMath();
+        this.detectionChain = [
+            tree => this.colorModule.getValue(tree),
+            tree => this.nodeMath.getValue(tree)
+        ];
     }
 
     containsDeep(tree, type) {
@@ -30,6 +36,20 @@ class Ast {
         return null;
     }
 
+    getValue(tree) {
+        let i = 0, len = this.detectionChain.length;
+        let value = null;
+
+        for (i; i < len; ++i) {
+            value = this.detectionChain[i](tree);
+            if (value !== null) {
+                break;
+            }
+        }
+
+        return value;
+    }
+
     nodeToVariableName(tree) {
         let node = this.getDeepNodeByType(tree, 'variable');
         if (node !== null) {
@@ -43,17 +63,11 @@ class Ast {
         let value;
 
         if (node !== null) {
+            value = this.getValue(node);
 
-            // Simple variable
-            if (node.length === 1) {
+            // Values is not found, fallback to first element
+            if (value === null) {
                 value = node.first();
-            } else {
-                value = this.nodeMath.getValue(node);
-
-                // Math is not possible, fallback to first element
-                if (value === null) {
-                    value = node.first();
-                }
             }
 
             console.log(value);
