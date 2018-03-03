@@ -18,6 +18,8 @@ class CodeGenerator {
         switch (category) {
             case Categories.VALUE:
                 return parseFloat(data);
+            case Categories.COLOR:
+                return parseInt(data, 16);
             default:
                 return data;
         }

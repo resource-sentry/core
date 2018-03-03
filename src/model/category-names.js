@@ -1,8 +1,9 @@
-const {DIMENSION, TEXT, VALUE} = require('./categories');
+const Categories = require('./categories');
 
 let names = [];
-names[DIMENSION] = 'Dimension';
-names[TEXT] = 'Text';
-names[VALUE] = 'Value';
+names[Categories.COLOR] = 'Color';
+names[Categories.DIMENSION] = 'Dimension';
+names[Categories.TEXT] = 'Text';
+names[Categories.VALUE] = 'Value';
 
 module.exports = Object.freeze(names);
