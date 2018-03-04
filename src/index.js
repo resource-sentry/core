@@ -11,4 +11,3 @@ Promise
         let {config, settings} = manifest;
         return new Core().start(config, settings);
     });
-
