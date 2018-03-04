@@ -1,6 +1,6 @@
 const async        = require('async'),
       EventEmitter = require('eventemitter3'),
-      fs           = require('graceful-fs'),
+      fs           = require('fs'),
       gonzales     = require('gonzales-pe'),
       path         = require('path');
 
