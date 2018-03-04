@@ -87,18 +87,12 @@ class Ast {
     }
 
     nodeToVariableValue(tree) {
-        console.log('-----');
-        console.dir(tree, {depth: 8});
         let value;
         let node = this.getDeepNodeByType(tree, ValueTypes.VALUE);
         let result = null;
 
         if (node !== null) {
             value = this.getValue(node);
-
-            console.log('----- VALUE -----');
-            console.log(value);
-            console.log('-----');
 
             if (value.hasOwnProperty('content') === true) {
                 result = {
