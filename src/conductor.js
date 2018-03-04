@@ -35,15 +35,21 @@ class Conductor {
         }
     }
 
-    registerReader(reader, done) {
-        this.readers.push(reader);
-        this.addReaderListeners(reader);
-        done(null);
+    registerReader(reader) {
+        return Promise
+            .resolve()
+            .then(() => {
+                this.readers.push(reader);
+                this.addReaderListeners(reader);
+            });
     }
 
-    registerWriter(writerRef, done) {
-        this.writer = writerRef;
-        done(null);
+    registerWriter(writerRef) {
+        return Promise
+            .resolve()
+            .then(() => {
+                this.writer = writerRef;
+            });
     }
 
     writeNow(done) {

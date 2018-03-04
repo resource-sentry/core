@@ -1,8 +1,9 @@
+global.DEBUG = true;
+global.Promise = require('bluebird');
+
 const Core         = require('./core'),
       Es2015Writer = require('./writer/es2015'),
       ScssReader   = require('./reader/scss');
-
-global.DEBUG = true;
 
 const config = {
     input : [

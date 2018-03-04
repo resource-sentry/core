@@ -1,6 +1,5 @@
-const async        = require('async'),
-      EventEmitter = require('eventemitter3'),
-      fs           = require('fs'),
+const EventEmitter = require('eventemitter3'),
+      fs           = Promise.promisifyAll(require('fs')),
       path         = require('path'),
       prettier     = require('prettier');
 
@@ -19,74 +18,63 @@ class Es2015Writer extends EventEmitter {
         this.template = null;
     }
 
-    dispose(done) {
-        done(null);
+    dispose() {
     }
 
-    getTemplate(done) {
-        async.waterfall([
-            next => {
-                if (this.template === null) {
-                    fs.readFile(path.resolve(__dirname, './output.tpl'), 'utf8', (error, data) => {
-                        if (error) {
-                            return next(error);
-                        }
-
-                        if (DEBUG) {
-                            this.logger.verbose('Resource template is loaded.');
-                        }
-
-                        this.template = data;
-                        next(null, data);
-                    });
-                } else {
-                    next(null, this.template);
-                }
-            }
-        ], done);
+    getTemplate() {
+        if (this.template === null) {
+            return fs
+                .readFileAsync(path.resolve(__dirname, './output.tpl'), 'utf8')
+                .then(data => {
+                    if (DEBUG) {
+                        this.logger.verbose('Resource template is loaded.');
+                    }
+                    this.template = data;
+                });
+        }
     }
 
-    init(done) {
-        this.outputPath = path.resolve(process.cwd(), this.config.path, 'rs.js');
-        this.getTemplate(done);
+    init() {
+        return Promise
+            .resolve()
+            .then(() => {
+                this.outputPath = path.resolve(process.cwd(), this.config.path, 'rs.js');
+                return this.getTemplate();
+            });
     }
 
     isWriting() {
         return this.writing;
     }
 
-    write(content, done) {
-        async.waterfall([
-            next => {
+    write(content) {
+        return Promise
+            .resolve()
+            .then(() => {
                 this.writing = true;
-                next(null, this.template);
-            },
-            (template, next) => {
-                let head = template
+                return this.template;
+            })
+            .then(template => {
+                return template
                     .replace('%CATEGORY_SIZE%', CATEGORY_SIZE)
                     .replace('%RESOURCE_SIZE%', RESOURCE_SIZE);
-                next(null, head);
-            },
-            (template, next) => {
+            })
+            .then(template => {
                 let generator = new CodeGenerator(content);
-                let body = template
+                return template
                     .replace('%KEYS%', generator.getKeys())
                     .replace('%DATA%', generator.getData());
-                next(null, body);
-            },
-            (output, next) => next(null, prettier.format(output, {
-                bracketSpacing: false,
-                singleQuote   : true
-            }))
-        ], (error, data) => {
-            if (error !== null) {
-                return done(error);
-            }
-            fs.writeFile(this.outputPath, data, {encoding: 'utf8'}, error => {
+            })
+            .then(template => {
+                return prettier.format(template, {
+                    bracketSpacing: false,
+                    singleQuote   : true
+                });
+            })
+            .then(data => fs.writeFileAsync(this.outputPath, data, {encoding: 'utf8'}))
+            .then(() => {
                 this.writing = false;
-                done(error);
             });
-        });
     }
 }
 

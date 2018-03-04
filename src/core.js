@@ -1,8 +1,6 @@
-const async = require('async');
-
 const Conductor    = require('./conductor'),
       Logger       = require('./util/logger'),
-      watchService = require('./service/watch-service');
+      WatchService = require('./service/watch-service');
 
 class Core {
     constructor() {
@@ -10,36 +8,46 @@ class Core {
         this.conductor = new Conductor();
     }
 
-    init(done) {
-        watchService.init(done);
+    init(settings) {
+        let {watch} = settings;
+        this.watchService = new WatchService();
     }
 
-    registerReaders(list, done) {
-        async.each(list, (reader, next) => {
-            async.parallel([
-                callback => reader.initWithWatch(watchService, callback),
-                callback => this.conductor.registerReader(reader, callback)
-            ], next);
-        }, done);
+    registerReaders(readers) {
+        return Promise
+            .each(
+                readers,
+                reader => {
+                    return Promise.all([
+                        reader.initWithWatch(this.watchService),
+                        this.conductor.registerReader(reader)
+                    ]);
+                }
+            );
     }
 
-    registerWriter(writer, done) {
-        async.parallel([
-            callback => writer.init(callback),
-            callback => this.conductor.registerWriter(writer, callback)
-        ], done);
+    registerWriter(writer) {
+        return Promise.all([
+            writer.init(),
+            this.conductor.registerWriter(writer)
+        ]);
     }
 
-    start({output, input}) {
-        async.series([
-            next => this.init(next),
-            next => this.registerWriter(output, next),
-            next => this.registerReaders(input, next)
-        ], error => {
-            if (error !== null) {
-                return this.logger.error(error);
-            }
-        });
+    /**
+     * Main entry point to start a convert process for a static resources.
+     *
+     * @param {Object} config
+     * @param {Object} settings
+     */
+    start(config, settings) {
+        let {output, input} = config;
+
+        return Promise
+            .resolve()
+            .then(() => this.init(settings))
+            .then(() => this.registerWriter(output))
+            .then(() => this.registerReaders(input))
+            .catch(error => this.logger.error(error));
     }
 }
 

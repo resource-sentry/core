@@ -1,6 +1,5 @@
-const async        = require('async'),
-      EventEmitter = require('eventemitter3'),
-      fs           = require('fs'),
+const EventEmitter = require('eventemitter3'),
+      fs           = Promise.promisifyAll(require('fs')),
       gonzales     = require('gonzales-pe'),
       path         = require('path');
 
@@ -19,30 +18,30 @@ class ScssReader extends EventEmitter {
         this.eventTarget = {target: this};
     }
 
-    dispose(done) {
-        done(null);
+    dispose() {
     }
 
     getAllCategories() {
         return this.categories;
     }
 
-    initWithWatch(service, done) {
-        async.waterfall([
-            next => this.scan(this.config.entry, next)
-        ], done);
+    initWithWatch(service) {
+        return Promise
+            .resolve()
+            .then(() => this.scan(this.config.entry));
     }
 
-    scan(entryPath, done) {
-        async.waterfall([
-            next => {
+    scan(entryPath) {
+        return Promise
+            .resolve()
+            .then(() => {
                 let configPath = path.resolve(process.cwd(), entryPath);
                 if (DEBUG) {
                     this.logger.verbose(`Loading "${configPath}" config.`);
                 }
-                fs.readFile(configPath, 'utf8', next);
-            },
-            (content, next) => {
+                return fs.readFileAsync(configPath, 'utf8');
+            })
+            .then(content => {
                 let variable;
                 let ast = new Ast();
                 let parser = new ValueParser();
@@ -74,9 +73,7 @@ class ScssReader extends EventEmitter {
 
                 this.categories = parser.getCategories();
                 this.emit(ReaderEvents.DATA_DID_CHANGE, this.eventTarget);
-                next(null);
-            }
-        ], done);
+            });
     }
 }
 

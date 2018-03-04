@@ -1,34 +1,28 @@
 const chokidar = require('chokidar');
 
-const logger = require('../util/logger')('WatchService');
+const Logger = require('../util/logger');
 
-let watcher;
+class WatchService {
+    constructor() {
+        this.logger = Logger(this.constructor.name);
+        this.watcher = chokidar.watch();
 
-function init(done) {
-    watcher = chokidar.watch();
+        this.watcher.on('ready', () => this.logger.verbose('Watcher is initiated.'));
+        this.watcher.on('error', error => this.logger.error('Error did occur: ' + error));
 
-    subscribe(watcher);
-
-    done();
-}
-
-function add(path) {
-    if (DEBUG) {
-        logger.verbose(`"${path}" path is added to a watch list.`);
-    }
-    watcher.add(path);
-}
-
-function subscribe(watcher) {
-    if (DEBUG) {
-        watcher.on('ready', () => logger.verbose('Watcher is initiated.'));
         ['add', 'addDir', 'change', 'unlink', 'unlinkDir'].forEach(eventType => {
-            watcher.on(eventType, path => {
-                logger.debug(`${eventType.toUpperCase()} - "${path}"`);
+            this.watcher.on(eventType, path => {
+                this.logger.debug(`${eventType.toUpperCase()} - "${path}"`);
             });
         });
-        watcher.on('error', error => logger.error('Error did occur: ' + error));
+    }
+
+    add(path) {
+        if (DEBUG) {
+            this.logger.verbose(`"${path}" path is added to a watch list.`);
+        }
+        this.watcher.add(path);
     }
 }
 
-module.exports = {init, add};
+module.exports = WatchService;
