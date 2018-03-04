@@ -1,6 +1,4 @@
 module.exports = {
-    globals: {
-        DEBUG: false
-    },
-    verbose: true
+    setupFiles: ['./test/setup.js'],
+    verbose   : true
 };

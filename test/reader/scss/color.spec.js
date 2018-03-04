@@ -6,40 +6,29 @@ describe('SCSS Reader. Color.', () => {
     let reader;
     let categories;
 
-    beforeAll(done => {
+    beforeAll(() => {
         reader = new ScssReader({entry: './test/reader/scss/style-color.scss'});
-        reader.initWithWatch({}, () => {
-            categories = reader.getAllCategories();
-            done();
-        });
+
+        return reader
+            .initWithWatch({})
+            .then(() => {
+                categories = reader.getAllCategories();
+            });
     });
 
-    it('uses Color category', done => {
-        reader.initWithWatch({}, () => {
-            expect(categories[Categories.COLOR]).toBeDefined();
-            done();
-        });
+    it('uses Color category', () => {
+        expect(categories[Categories.COLOR]).toBeDefined();
     });
 
-    it('extracts HEX color', done => {
-        reader.initWithWatch({}, () => {
-            expect(categories[Categories.COLOR]).toContainEqual({name: 'primaryColor', value: 'eeffcc'});
-            done();
-        });
+    it('extracts HEX color', () => {
+        expect(categories[Categories.COLOR]).toContainEqual({name: 'primaryColor', value: 'eeffcc'});
     });
 
-    it('converts basic web color', done => {
-        reader.initWithWatch({}, () => {
-            expect(categories[Categories.COLOR]).toContainEqual({name: 'message-color', value: '0000FF'});
-            done();
-        });
+    it('converts basic web color', () => {
+        expect(categories[Categories.COLOR]).toContainEqual({name: 'message-color', value: '0000FF'});
     });
 
-
-    it('converts extended web color', done => {
-        reader.initWithWatch({}, () => {
-            expect(categories[Categories.COLOR]).toContainEqual({name: 'headerColor', value: 'D2691E'});
-            done();
-        });
+    it('converts extended web color', () => {
+        expect(categories[Categories.COLOR]).toContainEqual({name: 'headerColor', value: 'D2691E'});
     });
 });
