@@ -7,7 +7,7 @@ global.DEBUG = true;
 const config = {
     input : [
         new ScssReader({
-            entry: './test.scss'
+            entry: './test/reader/scss/style-value.scss'
         })
     ],
     output: new Es2015Writer({
