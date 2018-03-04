@@ -35,7 +35,13 @@ class ScssReader extends EventEmitter {
 
     scan(entryPath, done) {
         async.waterfall([
-            async.apply(fs.readFile, path.resolve(process.cwd(), entryPath), 'utf8'),
+            next => {
+                let configPath = path.resolve(process.cwd(), entryPath);
+                if (DEBUG) {
+                    this.logger.verbose(`Loading "${configPath}" config.`);
+                }
+                fs.readFile(configPath, 'utf8', next);
+            },
             (content, next) => {
                 let variable;
                 let ast = new Ast();
@@ -46,7 +52,7 @@ class ScssReader extends EventEmitter {
                 tree.forEach('declaration', (child, index, parent) => {
                     if (ast.containsDeep(child, 'variable') === true) {
                         variable = ast.nodeToVariable(child);
-                        console.log('RESULT: ', variable);
+
                         if (variable.value === Variables.UNDETERMINED) {
                             secondPath.push(child);
                         } else {
