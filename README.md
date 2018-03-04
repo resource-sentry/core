@@ -1,13 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
- 
-
-- [Resource Sentry](#resource-sentry)
-  - [Motivation](#motivation)
-  - [Future Ideas (i.e TODO)](#future-ideas-ie-todo)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Resource Sentry
 
 Bring static resources (SCSS, JSON, XML) to JavaScript.
@@ -19,6 +9,18 @@ Bring static resources (SCSS, JSON, XML) to JavaScript.
 [![Coverage Status](https://coveralls.io/repos/github/NicolasSiver/resource-sentry/badge.svg?branch=master)](https://coveralls.io/github/NicolasSiver/resource-sentry?branch=master)
 
 **Work in progress**
+
+## Table of contents:
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+ 
+
+- [Motivation](#motivation)
+- [Future Ideas (i.e TODO)](#future-ideas-ie-todo)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 ## Motivation
 
