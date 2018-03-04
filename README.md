@@ -1,3 +1,13 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+ 
+
+- [Resource Sentry](#resource-sentry)
+  - [Motivation](#motivation)
+  - [Future Ideas (i.e TODO)](#future-ideas-ie-todo)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Resource Sentry
 
 Bring static resources (SCSS, JSON, XML) to JavaScript.
@@ -25,3 +35,8 @@ import Rs from './res/rs';
 
 Rs.getResource(Rs.Style.MY_PADDING); // 8
 ```
+
+## Future Ideas (i.e TODO)
+
+- Reader: `gettext`, POT/PO files.
+- Reader: property file. (key/value)

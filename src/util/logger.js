@@ -12,7 +12,7 @@ const colors = {
     [loggerLevels.SILLY]  : chalk.gray
 };
 
-module.exports = function (category, level = loggerLevels.SILLY) {
+module.exports = (category, level = loggerLevels.SILLY) => {
 
     function pad(value, length, padChar) {
         let result = value.toString();
@@ -22,9 +22,9 @@ module.exports = function (category, level = loggerLevels.SILLY) {
     function repeat(char, times) {
         if (times === 0) {
             return '';
-        } else if (times == 1) {
+        } else if (times === 1) {
             return char;
-        } else if (times == 2) {
+        } else if (times === 2) {
             return char + char;
         }
     }
@@ -33,7 +33,7 @@ module.exports = function (category, level = loggerLevels.SILLY) {
         transports: [
             new winston.transports.Console({
                 level    : level,
-                timestamp: function () {
+                timestamp: () => {
                     let date    = new Date(),
                         hours   = date.getHours(),
                         minutes = date.getMinutes(),
@@ -42,9 +42,9 @@ module.exports = function (category, level = loggerLevels.SILLY) {
 
                     return [pad(hours, 2, '0'), pad(minutes, 2, '0'), pad(seconds, 2, '0'), pad(ms, 3, '0')].join(':');
                 },
-                formatter: function (options) {
+                formatter: options => {
                     return '[' + options.timestamp() + '][' + category + '] ' + (options.message ? colors[options.level](options.message) : '') +
-                        (options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '' );
+                        (options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '');
                 }
             })
         ]
