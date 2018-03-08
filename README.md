@@ -7,8 +7,6 @@ Bring static resources (SCSS, JSON, XML) to JavaScript.
 ![bitHound Score](https://www.bithound.io/github/NicolasSiver/resource-sentry/badges/score.svg)
 [![Coverage Status](https://coveralls.io/repos/github/NicolasSiver/resource-sentry/badge.svg?branch=master)](https://coveralls.io/github/NicolasSiver/resource-sentry?branch=master)
 
-**Work in progress**
-
 ## Table of contents:
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
