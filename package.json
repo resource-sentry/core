@@ -45,5 +45,8 @@
         "gonzales-pe": "4.2.3",
         "prettier": "1.11.1",
         "winston": "2.4.0"
+    },
+    "engines": {
+        "node": ">=6.x"
     }
 }
