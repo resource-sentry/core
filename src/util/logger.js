@@ -1,4 +1,5 @@
 const chalk   = require('chalk'),
+      pad     = require('pad'),
       winston = require('winston');
 
 const loggerLevels = require('./logger-levels');
@@ -13,22 +14,6 @@ const colors = {
 };
 
 module.exports = (category, level = loggerLevels.SILLY) => {
-
-    function pad(value, length, padChar) {
-        let result = value.toString();
-        return repeat(padChar, length - result.length) + result;
-    }
-
-    function repeat(char, times) {
-        if (times === 0) {
-            return '';
-        } else if (times === 1) {
-            return char;
-        } else if (times === 2) {
-            return char + char;
-        }
-    }
-
     return new winston.Logger({
         transports: [
             new winston.transports.Console({
@@ -40,7 +25,7 @@ module.exports = (category, level = loggerLevels.SILLY) => {
                         seconds = date.getSeconds(),
                         ms      = date.getMilliseconds();
 
-                    return [pad(hours, 2, '0'), pad(minutes, 2, '0'), pad(seconds, 2, '0'), pad(ms, 3, '0')].join(':');
+                    return [pad(2, hours, '0'), pad(2, minutes, '0'), pad(2, seconds, '0'), pad(3, ms, '0')].join(':');
                 },
                 formatter: options => {
                     return '[' + options.timestamp() + '][' + category + '] ' + (options.message ? colors[options.level](options.message) : '') +
