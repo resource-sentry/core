@@ -30,21 +30,37 @@ Bring static resources (SCSS, JSON, XML) to JavaScript.
 
 Multi-language support? Project variables. Style variables. What if you want utilize power of namespaces in XML to build a collaborative source for multi-language support? What if you want to store style-related variables in SCSS, but you need to make some computation in runtime. Most of the data formats are not supported by browsers, - solution is to compile resources before code will be execute on user's machine and use "resources" as an efficient JavaScript code.
 
-Example:
-
-```js
-// _vars.scss
-$my-padding: 8px;
-
-// main.js
-import Rs from './res/rs';
-
-Rs.getResource(Rs.Style.MY_PADDING); // 8
-```
-
 ## Readers
 
 ### SCSS
+
+Extracts all variables from the provided `.scss` file.
+
+Supports: `color`, `dimension`, `operation`, `text`, `simple value` and `variable` variables.
+
+**Configuration**:
+
+- `entry`, path to SCSS file.
+
+Example:
+
+```scss
+$prf-value-one-hundred: 100;
+$breakpoint: 768px;
+$rhythm: 4px;
+$padding-s: 2*$rhythm;
+```
+
+SCSS variables will be compiled into `rs.js` file ready for use in production code.
+
+```js
+import Rs from './rs';
+
+Rs.getResource(Rs.Value.PRF_VALUE_ONE_HUNDRED); // Return 100
+Rs.getResource(Rs.Dimension.BREAKPOINT); // Return 768
+Rs.getResource(Rs.Dimension.RHYTHM); // Return 4
+Rs.getResource(Rs.Dimension.PADDING_S); // Return 8
+```
 
 ## Writers
 
