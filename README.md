@@ -17,6 +17,10 @@ Bring static resources (SCSS, JSON, XML) to JavaScript.
  
 
 - [Motivation](#motivation)
+- [Readers](#readers)
+  - [SCSS](#scss)
+- [Writers](#writers)
+  - [ES2015](#es2015)
 - [Future Ideas (i.e TODO)](#future-ideas-ie-todo)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -28,7 +32,7 @@ Multi-language support? Project variables. Style variables. What if you want uti
 
 Example:
 
-```
+```js
 // _vars.scss
 $my-padding: 8px;
 
@@ -37,6 +41,21 @@ import Rs from './res/rs';
 
 Rs.getResource(Rs.Style.MY_PADDING); // 8
 ```
+
+## Readers
+
+### SCSS
+
+## Writers
+
+### ES2015
+
+Represents type categories as ES6 module with `Rs.getResource(Rs.Value.SOMETHING)` API.
+
+**Configuration**:
+
+- `path`, output directory for the final JavaScript `rs.js` file.
+
 
 ## Future Ideas (i.e TODO)
 
