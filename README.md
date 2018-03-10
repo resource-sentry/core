@@ -18,6 +18,9 @@ Bring static resources (SCSS, JSON, XML) to JavaScript.
   - [SCSS](#scss)
 - [Writers](#writers)
   - [ES2015](#es2015)
+- [Configuration](#configuration)
+  - [Config](#config)
+  - [Settings](#settings)
 - [Future Ideas (i.e TODO)](#future-ideas-ie-todo)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -69,6 +72,29 @@ Represents type categories as ES6 module with `Rs.getResource(Rs.Value.SOMETHING
 
 - `path`, output directory for the final JavaScript `rs.js` file.
 
+## Configuration
+
+The main configuration is an Object. Configuration can be provided as a `rs.config.js` file.
+Every configuration should include to root properties `config` and `settings`.
+
+Example: 
+
+```js
+module.exports = {config: {}, settings: {}};
+```
+
+### Config
+
+Determines about readers and writers.
+
+- `input <Array>`, list of reader instances
+- `output <Writer>`, instance of a writer
+
+### Settings
+
+Determines behavior of the tool.
+
+- `watch <Boolean|Object>`, enables file watcher for reader inputs. Object could be used to provide `Chokidar` options.
 
 ## Future Ideas (i.e TODO)
 
