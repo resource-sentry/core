@@ -14,7 +14,6 @@ module.exports = {
     },
 
     settings: {
-        // Pass Chokidar options, or Boolean
         watch: true
     }
 };

@@ -4,8 +4,8 @@ const EventEmitter = require('eventemitter3'),
       path         = require('path');
 
 const Ast = require('./ast');
+const Events = require('../../model/events');
 const Logger = require('../../util/logger');
-const ReaderEvents = require('../../model/reader-events');
 const ValueParser = require('./value-parser');
 const Variables = require('./variables');
 
@@ -25,17 +25,15 @@ class ScssReader extends EventEmitter {
         return this.categories;
     }
 
-    initWithWatch(service) {
-        return Promise
-            .resolve()
-            .then(() => this.scan(this.config.entry));
+    getEntry() {
+        return this.config.entry;
     }
 
-    scan(entryPath) {
+    scan() {
         return Promise
             .resolve()
             .then(() => {
-                let configPath = path.resolve(process.cwd(), entryPath);
+                let configPath = path.resolve(process.cwd(), this.getEntry());
                 if (DEBUG) {
                     this.logger.verbose(`Loading "${configPath}" config.`);
                 }
@@ -72,7 +70,7 @@ class ScssReader extends EventEmitter {
                 });
 
                 this.categories = parser.getCategories();
-                this.emit(ReaderEvents.DATA_DID_CHANGE, this.eventTarget);
+                this.emit(Events.READER_DATA_DID_CHANGE, this.eventTarget);
             });
     }
 }
