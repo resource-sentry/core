@@ -3,9 +3,10 @@
 Bring static resources (SCSS, JSON, XML) to JavaScript.
 
 ![Version](https://img.shields.io/npm/v/resource-sentry.svg)
+[![Travis](https://img.shields.io/travis/NicolasSiver/resource-sentry.svg)](https://travis-ci.org/NicolasSiver/resource-sentry)
+[![Coverage Status](https://coveralls.io/repos/github/NicolasSiver/resource-sentry/badge.svg?branch=master)](https://coveralls.io/github/NicolasSiver/resource-sentry?branch=master)
 ![Dependencies](https://david-dm.org/NicolasSiver/resource-sentry.svg)
 ![bitHound Score](https://www.bithound.io/github/NicolasSiver/resource-sentry/badges/score.svg)
-[![Coverage Status](https://coveralls.io/repos/github/NicolasSiver/resource-sentry/badge.svg?branch=master)](https://coveralls.io/github/NicolasSiver/resource-sentry?branch=master)
 
 ## Table of contents:
 
