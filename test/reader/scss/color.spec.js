@@ -3,14 +3,12 @@ const ScssReader = require('../../../src/reader/scss');
 
 describe('SCSS Reader. Color.', () => {
 
-    let reader;
     let categories;
 
     beforeAll(() => {
-        reader = new ScssReader({entry: './test/reader/scss/style-color.scss'});
-
+        let reader = new ScssReader({entry: './test/reader/scss/style-color.scss'});
         return reader
-            .initWithWatch({})
+            .scan()
             .then(() => {
                 categories = reader.getAllCategories();
             });
