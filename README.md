@@ -22,6 +22,7 @@ Bring static resources (SCSS, JSON, XML) to JavaScript.
 - [Configuration](#configuration)
   - [Config](#config)
   - [Settings](#settings)
+- [Architecture Ideas](#architecture-ideas)
 - [Future Ideas (i.e TODO)](#future-ideas-ie-todo)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -96,6 +97,10 @@ Determines about readers and writers.
 Determines behavior of the tool.
 
 - `watch <Boolean|Object>`, enables file watcher for reader inputs. Object could be used to provide `Chokidar` options.
+
+## Architecture Ideas
+
+![Architecture Scheme](doc/overall-idea-map.png)
 
 ## Future Ideas (i.e TODO)
 
