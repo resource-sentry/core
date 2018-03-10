@@ -8,22 +8,8 @@ class Core {
         this.conductor = new Conductor();
     }
 
-    init(settings) {
-        let {watch} = settings;
-        this.watchService = new WatchService();
-    }
-
     registerReaders(readers) {
-        return Promise
-            .each(
-                readers,
-                reader => {
-                    return Promise.all([
-                        reader.initWithWatch(this.watchService),
-                        this.conductor.registerReader(reader)
-                    ]);
-                }
-            );
+        return Promise.each(readers, reader => this.conductor.registerReader(reader));
     }
 
     registerWriter(writer) {
@@ -41,12 +27,29 @@ class Core {
      */
     start(config, settings) {
         let {output, input} = config;
+        let {watch} = settings;
 
         return Promise
             .resolve()
-            .then(() => this.init(settings))
+            .then(() => {
+                let options;
+
+                if (watch !== undefined) {
+                    if (DEBUG) {
+                        this.logger.verbose('Activating file watcher...');
+                    }
+
+                    options = {
+                        cwd: process.cwd(),
+                        ...watch
+                    };
+
+                    this.conductor.setWatchService(new WatchService(options));
+                }
+            })
             .then(() => this.registerWriter(output))
             .then(() => this.registerReaders(input))
+            .then(() => this.conductor.scanIfNeeded())
             .catch(error => this.logger.error(error));
     }
 }

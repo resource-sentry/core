@@ -1,7 +1,7 @@
 const Logger       = require('./util/logger'),
       ResourceData = require('./model/resource-data');
 
-const ReaderEvents = require('./model/reader-events');
+const Events = require('./model/events');
 
 class Conductor {
     constructor() {
@@ -9,10 +9,11 @@ class Conductor {
         this.readers = [];
         this.dataPostponed = false;
         this.writer = null;
+        this.watchService = null;
     }
 
     addReaderListeners(target) {
-        target.addListener(ReaderEvents.DATA_DID_CHANGE, event => this.dataDidChange(event));
+        target.addListener(Events.FILE_DID_CHANGE, event => this.dataDidChange(event));
     }
 
     dataDidChange(e) {
@@ -50,6 +51,27 @@ class Conductor {
             .then(() => {
                 this.writer = writerRef;
             });
+    }
+
+    scan() {
+        return Promise.each(this.readers, reader => reader.scan());
+    }
+
+    scanIfNeeded() {
+        if (this.watchService === null) {
+            return this.scan();
+        } else {
+            this.readers.forEach(reader => {
+                this.watchService.add(reader.getEntry());
+            });
+        }
+    }
+
+    setWatchService(service) {
+        if (service !== null) {
+            this.watchService = service;
+            this.watchService.addListener(Events.FILE_DID_CHANGE, () => this.scan());
+        }
     }
 
     writeNow(done) {

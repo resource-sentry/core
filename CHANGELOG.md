@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Added external `rs.config.js` manifest support
 - Added Travis CI support
+- Added file watcher
 - Changed the main control flow from `async` to Bluebird Promise.
 - Removed `async` dependency
 
