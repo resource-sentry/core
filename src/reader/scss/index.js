@@ -1,10 +1,12 @@
 const EventEmitter = require('eventemitter3'),
-      fs           = Promise.promisifyAll(require('fs')),
+      fsNative     = require('fs'),
       gonzales     = require('gonzales-pe'),
-      path         = require('path');
+      path         = require('path'),
+      Promise      = require('bluebird');
 
 const Ast = require('./ast');
 const Events = require('../../model/events');
+const fs = Promise.promisifyAll(fsNative);
 const Logger = require('../../util/logger');
 const ValueParser = require('./value-parser');
 const Variables = require('./variables');

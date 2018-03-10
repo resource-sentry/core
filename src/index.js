@@ -1,8 +1,8 @@
 global.DEBUG = true;
-global.Promise = require('bluebird');
 
 const Core     = require('./core'),
-      Manifest = require('./manifest');
+      Manifest = require('./manifest'),
+      Promise  = require('bluebird');
 
 Promise
     .resolve()

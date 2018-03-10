@@ -1,3 +1,5 @@
+const Promise = require('bluebird');
+
 const Conductor    = require('./conductor'),
       Logger       = require('./util/logger'),
       WatchService = require('./service/watch-service');

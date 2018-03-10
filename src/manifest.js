@@ -1,4 +1,5 @@
-const path = require('path');
+const path    = require('path'),
+      Promise = require('bluebird');
 
 const Constants = require('./model/constants');
 

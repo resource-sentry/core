@@ -1,10 +1,13 @@
 const EventEmitter = require('eventemitter3'),
-      fs           = Promise.promisifyAll(require('fs')),
+      fsNative     = require('fs'),
       path         = require('path'),
-      prettier     = require('prettier');
+      prettier     = require('prettier'),
+      Promise      = require('bluebird');
 
 const CodeGenerator = require('./code-generator'),
       Logger        = require('../../util/logger');
+
+const fs = Promise.promisifyAll(fsNative);
 
 const {CATEGORY_SIZE, RESOURCE_SIZE} = require('../../model/constants');
 
