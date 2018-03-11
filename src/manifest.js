@@ -5,13 +5,13 @@ const Constants = require('./model/constants');
 
 class Manifest {
     loadDefault() {
-        return this.loadManifest(path.resolve(process.cwd(), Constants.MANIFEST));
+        return this.loadManifest(Constants.MANIFEST);
     }
 
-    loadManifest(path) {
+    loadManifest(manifestPath) {
         return Promise
             .resolve()
-            .then(() => require(path));
+            .then(() => require(path.resolve(process.cwd(), manifestPath)));
     }
 }
 
