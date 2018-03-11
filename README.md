@@ -77,7 +77,7 @@ Represents type categories as ES6 module with `Rs.getResource(Rs.Value.SOMETHING
 ## Configuration
 
 The main configuration is an Object. Configuration can be provided as a `rs.config.js` file.
-Every configuration should include to root properties `config` and `settings`.
+Every configuration should include the root property `config` and optional `settings`.
 
 Example: 
 
@@ -87,14 +87,14 @@ module.exports = {config: {}, settings: {}};
 
 ### Config
 
-Determines about readers and writers.
+Required. Determines about readers and writers.
 
 - `input <Array>`, list of reader instances
 - `output <Writer>`, instance of a writer
 
 ### Settings
 
-Determines behavior of the tool.
+Optional. Determines behavior of the tool.
 
 - `watch <Boolean|Object>`, enables file watcher for reader inputs. Object could be used to provide `Chokidar` options.
 
