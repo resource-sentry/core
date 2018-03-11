@@ -5,9 +5,8 @@ const RESOURCE_MASK = (1 << RESOURCE_SIZE) - 1;
 
 %KEYS%
 
-let data = [
-    %DATA%
-];
+let data = [];
+%DATA%
 
 export function getResource(resourceId) {
     const category = (resourceId & CATEGORY_MASK) >> RESOURCE_SIZE;

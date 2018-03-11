@@ -14,7 +14,7 @@ class Conductor {
     }
 
     addReaderListeners(target) {
-        target.addListener(Events.FILE_DID_CHANGE, event => this.dataDidChange(event));
+        target.addListener(Events.READER_DATA_DID_CHANGE, event => this.dataDidChange(event));
     }
 
     dataDidChange(e) {
