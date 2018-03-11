@@ -13,9 +13,7 @@ class ValueParser {
     addValue(name, value, category) {
         let categoryData = this.categories[category] || [];
 
-        if (DEBUG) {
-            this.logger.verbose(`Register Value, name: "${chalk.blue(name)}", data: ${value}, category: ${category}`);
-        }
+        this.logger.verbose(`Register Value, name: "${chalk.blue(name)}", data: ${value}, category: ${category}`);
 
         categoryData.push({name, value});
         this.categories[category] = categoryData;

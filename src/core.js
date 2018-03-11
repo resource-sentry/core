@@ -37,9 +37,7 @@ class Core {
                 let options;
 
                 if (watch !== undefined) {
-                    if (DEBUG) {
-                        this.logger.verbose('Activating file watcher...');
-                    }
+                    this.logger.verbose('Activating file watcher...');
 
                     options = {
                         cwd: process.cwd(),

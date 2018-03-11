@@ -23,9 +23,7 @@ class Conductor {
 
     invalidate() {
         if (this.writer.isWriting()) {
-            if (DEBUG) {
-                this.logger.warn('Invalidation is postponed');
-            }
+            this.logger.warn('Invalidation is postponed');
             this.dataPostponed = true;
         } else {
             this.writeNow(() => {
@@ -78,9 +76,7 @@ class Conductor {
     writeNow(done) {
         let resourceData = new ResourceData();
 
-        if (DEBUG) {
-            this.logger.verbose('Writing data...');
-        }
+        this.logger.verbose('Writing data...');
 
         this.readers.forEach(reader => {
             resourceData.mergeData(reader.getAllCategories());

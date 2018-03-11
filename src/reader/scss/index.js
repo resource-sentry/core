@@ -36,9 +36,7 @@ class ScssReader extends EventEmitter {
             .resolve()
             .then(() => {
                 let configPath = path.resolve(process.cwd(), this.getEntry());
-                if (DEBUG) {
-                    this.logger.verbose(`Loading "${configPath}" config.`);
-                }
+                this.logger.verbose(`Loading "${configPath}" config.`);
                 return fs.readFileAsync(configPath, 'utf8');
             })
             .then(content => {
@@ -60,10 +58,8 @@ class ScssReader extends EventEmitter {
                     }
                 });
 
-                if (DEBUG) {
-                    if (secondPath.length > 0) {
-                        this.logger.verbose(`Running second path for ${secondPath.length} variables.`);
-                    }
+                if (secondPath.length > 0) {
+                    this.logger.verbose(`Running second path for ${secondPath.length} variables.`);
                 }
 
                 secondPath.forEach(child => {

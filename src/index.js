@@ -1,5 +1,3 @@
-global.DEBUG = true;
-
 const Core     = require('./core'),
       Manifest = require('./manifest'),
       Promise  = require('bluebird');

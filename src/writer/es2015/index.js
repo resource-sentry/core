@@ -29,9 +29,7 @@ class Es2015Writer extends EventEmitter {
             return fs
                 .readFileAsync(path.resolve(__dirname, './output.tpl'), 'utf8')
                 .then(data => {
-                    if (DEBUG) {
-                        this.logger.verbose('Resource template is loaded.');
-                    }
+                    this.logger.verbose('Resource template is loaded.');
                     this.template = data;
                 });
         }

@@ -27,9 +27,7 @@ class WatchService extends EventEmitter {
     }
 
     add(path) {
-        if (DEBUG) {
-            this.logger.verbose(`Path "${chalk.blue(path)}" is added to a watch list.`);
-        }
+        this.logger.verbose(`Path "${chalk.blue(path)}" is added to a watch list.`);
         this.watcher.add(path);
     }
 }
