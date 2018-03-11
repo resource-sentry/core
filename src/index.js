@@ -1,11 +1,6 @@
-const Core     = require('./core'),
-      Manifest = require('./manifest'),
-      Promise  = require('bluebird');
+const Core = require('./core');
 
-Promise
-    .resolve()
-    .then(() => new Manifest().loadDefault())
-    .then(manifest => {
-        let {config, settings} = manifest;
-        return new Core().start(config, settings);
-    });
+module.exports = manifest => {
+    let {config, settings} = manifest;
+    return new Core().start(config, settings);
+};
