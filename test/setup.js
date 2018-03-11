@@ -1,1 +1,1 @@
-global.DEBUG = false;
+

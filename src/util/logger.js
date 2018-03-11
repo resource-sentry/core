@@ -25,10 +25,12 @@ const timestamp = () => {
 
 module.exports = (category, level = loggerLevels.SILLY) => {
     return winston.createLogger({
-        level     : level,
+        level     : (process.env.NODE_ENV === 'test') ? loggerLevels.ERROR : level,
         format    : winston.format.printf(options => {
             return `[${timestamp()}][${category}] ${colors[options.level](options.message)}`;
         }),
-        transports: [new winston.transports.Console()]
+        transports: [
+            new winston.transports.Console()
+        ]
     });
 };
