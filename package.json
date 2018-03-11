@@ -3,10 +3,13 @@
     "version": "0.2.0",
     "description": "Bring static resources to JavaScript.",
     "main": "src/index.js",
+    "bin": {
+        "rs": "src/cli.js"
+    },
     "scripts": {
         "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
         "doc": "doctoc --title ' ' README.md",
-        "start": "node ./src/index.js",
+        "start": "node ./src/cli.js",
         "test": "jest"
     },
     "repository": {

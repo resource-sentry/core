@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.3.0] - TBD
 
+- Added CLI interface
 - Changed library entry to be used as an API
 - Removed global usage for `Bluebird` dependency
 
