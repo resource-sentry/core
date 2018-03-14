@@ -38,11 +38,13 @@ Multi-language support? Project variables. Style variables. What if you want uti
 ### Properties
 
 Extracts all values from the properties file. Ignores empty lines and comment lines (`#` and `!`).
-Supports multi-line properties.
+Supports multi-line properties. Properties files are popular in Java world.
 
 **Configuration**:
 
 - `entry`, path to Properties file.
+
+Example:
 
 ```
 hello:world
