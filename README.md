@@ -16,6 +16,7 @@ Bring static resources (SCSS, JSON, XML) to JavaScript.
 
 - [Motivation](#motivation)
 - [Readers](#readers)
+  - [Properties](#properties)
   - [SCSS](#scss)
 - [Writers](#writers)
   - [ES2015](#es2015)
@@ -33,6 +34,29 @@ Bring static resources (SCSS, JSON, XML) to JavaScript.
 Multi-language support? Project variables. Style variables. What if you want utilize power of namespaces in XML to build a collaborative source for multi-language support? What if you want to store style-related variables in SCSS, but you need to make some computation in runtime. Most of the data formats are not supported by browsers, - solution is to compile resources before code will be execute on user's machine and use "resources" as an efficient JavaScript code.
 
 ## Readers
+
+### Properties
+
+Extracts all values from the properties file. Ignores empty lines and comment lines (`#` and `!`).
+Supports multi-line properties.
+
+**Configuration**:
+
+- `entry`, path to Properties file.
+
+```
+hello:world
+easyCount = 8
+```
+
+Properties will be compiled into `rs.js` file ready for use in production code.
+
+```js
+import Rs from './rs';
+
+Rs.getResource(Rs.Text.HELLO); // Return "world"
+Rs.getResource(Rs.Value.EASY_COUNT); // Return 8
+```
 
 ### SCSS
 
