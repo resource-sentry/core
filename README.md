@@ -105,4 +105,3 @@ Optional. Determines behavior of the tool.
 ## Future Ideas (i.e TODO)
 
 - Reader: `gettext`, POT/PO files.
-- Reader: property file. (key/value)
