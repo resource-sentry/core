@@ -1,1 +1,3 @@
 $alertClass: "error";
+// Only first node will be extracted, example: 'save'
+$buttonConfig: 'save' 50px, 'cancel' 50px, 'help' 100px;
