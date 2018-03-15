@@ -8,6 +8,7 @@ class ValueParser {
     constructor() {
         this.logger = Logger(this.constructor.name);
         this.categories = [];
+        this.cleanText = /['"]/g;
     }
 
     addValue(name, value, category) {
@@ -33,7 +34,7 @@ class ValueParser {
                 this.addValue(name, valueData.value, Categories.VALUE);
                 break;
             case ValueTypes.STRING:
-                this.addValue(name, valueData.value, Categories.TEXT);
+                this.addValue(name, valueData.value.replace(this.cleanText, ''), Categories.TEXT);
                 break;
             case ValueTypes.COLOR:
                 this.addValue(name, valueData.value, Categories.COLOR);
