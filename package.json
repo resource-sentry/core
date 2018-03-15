@@ -1,6 +1,6 @@
 {
     "name": "resource-sentry",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "Bring static resources to JavaScript.",
     "main": "src/index.js",
     "bin": {
