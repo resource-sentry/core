@@ -26,7 +26,7 @@ describe('SCSS Reader. Dimension.', () => {
         expect(categories[Categories.DIMENSION]).toContainEqual({name: 'firstValue', value: 0.625});
     });
 
-    it('extract default value', () => {
+    it('extracts default value', () => {
         expect(categories[Categories.DIMENSION]).toContainEqual({name: 'secondValue', value: 24});
     });
 });

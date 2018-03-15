@@ -131,3 +131,4 @@ Optional. Determines behavior of the tool.
 ## Future Ideas (i.e TODO)
 
 - Reader: `gettext`, POT/PO files.
+- Split Readers/Writers on separate repos and introduce a convention in naming for readers and writers.
