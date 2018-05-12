@@ -7,8 +7,7 @@ const EventEmitter = require('eventemitter3'),
 const Categories     = require('../../model/categories'),
       Events         = require('../../model/events'),
       Logger         = require('../../util/logger'),
-      TransformBasic = require('./transform-basic'),
-      TransformReact = require('./transform-react');
+      TransformBasic = require('./transform-basic');
 
 class SvgReader extends EventEmitter {
     constructor(config) {
