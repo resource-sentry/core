@@ -29,9 +29,7 @@ class SvgReader extends EventEmitter {
     createTransformList(directives) {
         let transform;
         let result = [];
-        let knownTransforms = {
-            'react': TransformReact
-        };
+        let knownTransforms = {};
 
         if (directives !== undefined) {
             directives.forEach(directive => {
