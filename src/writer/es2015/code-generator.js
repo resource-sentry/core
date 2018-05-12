@@ -31,7 +31,7 @@ class CodeGenerator {
         let properties;
 
         this.categories.forEach((category, code) => {
-            properties = category.map(({id, value}) => `'${id}':${value}`);
+            properties = category.map(({id, value}) => `'${id}':${JSON.stringify(value)}`);
             output.push(`// ${CategoryNames[code]}`);
             output.push(`data[${code}] = {${properties}};`);
         });
