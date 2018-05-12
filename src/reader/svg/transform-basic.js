@@ -5,6 +5,7 @@ class TransformBasic {
         this.comments = /<!.*-->/g;
         this.verboseTags = /<(title|desc)>.*<\/\1>/g;
         this.idContent = /\sid=.*?\s/g;
+        this.responsive = /\s(width|height)=\S*/g;
     }
 
     getResult(content) {
@@ -13,6 +14,7 @@ class TransformBasic {
             .replace(this.comments, '')
             .replace(this.verboseTags, '')
             .replace(this.idContent, match => match.toLowerCase())
+            .replace(this.responsive, '')
             .replace(this.formatting, '');
     }
 }
