@@ -7,7 +7,8 @@ const EventEmitter = require('eventemitter3'),
 const Categories     = require('../../model/categories'),
       Events         = require('../../model/events'),
       Logger         = require('../../util/logger'),
-      TransformBasic = require('./transform-basic');
+      TransformBasic = require('./transform-basic'),
+      TransformReact = require('./transform-react');
 
 class SvgReader extends EventEmitter {
     constructor(config) {
@@ -15,7 +16,7 @@ class SvgReader extends EventEmitter {
         this.logger = Logger(this.constructor.name);
         this.config = config;
         this.categories = [];
-        this.transforms = [new TransformBasic()];
+        this.transforms = this.createTransformList(config.transform);
         this.eventTarget = {target: this};
     }
 
@@ -23,6 +24,29 @@ class SvgReader extends EventEmitter {
         let categoryData = categories[category] || [];
         categoryData.push({name, value});
         categories[category] = categoryData;
+    }
+
+    createTransformList(directives) {
+        let transform;
+        let result = [];
+        let knownTransforms = {
+            'react': TransformReact
+        };
+
+        if (directives !== undefined) {
+            directives.forEach(directive => {
+                transform = knownTransforms[directive];
+                if (transform !== undefined) {
+                    result.push(new transform());
+                }
+            });
+        }
+
+        // The main transform always the last
+        // It gives opportunity for custom transforms to do their unique operations
+        result.push(new TransformBasic());
+
+        return result;
     }
 
     dispose() {
