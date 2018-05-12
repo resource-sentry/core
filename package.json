@@ -9,7 +9,7 @@
     "scripts": {
         "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
         "doc": "doctoc --title ' ' README.md",
-        "start": "node ./src/cli.js --config rs.config-example.js",
+        "start": "node ./src/cli.js",
         "test": "jest"
     },
     "repository": {
@@ -45,6 +45,7 @@
         "chokidar": "2.0.2",
         "clone": "^2.1.1",
         "eventemitter3": "3.0.1",
+        "fast-glob": "^2.2.1",
         "gonzales-pe": "4.2.3",
         "minimist": "^1.2.0",
         "pad": "^2.0.3",
