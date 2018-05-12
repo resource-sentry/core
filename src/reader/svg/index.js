@@ -4,9 +4,10 @@ const EventEmitter = require('eventemitter3'),
       path         = require('path'),
       Promise      = require('bluebird');
 
-const Categories = require('../../model/categories');
-const Events = require('../../model/events');
-const Logger = require('../../util/logger');
+const Categories     = require('../../model/categories'),
+      Events         = require('../../model/events'),
+      Logger         = require('../../util/logger'),
+      TransformBasic = require('./transform-basic');
 
 class SvgReader extends EventEmitter {
     constructor(config) {
@@ -14,6 +15,7 @@ class SvgReader extends EventEmitter {
         this.logger = Logger(this.constructor.name);
         this.config = config;
         this.categories = [];
+        this.transforms = [new TransformBasic()];
         this.eventTarget = {target: this};
     }
 
@@ -49,7 +51,9 @@ class SvgReader extends EventEmitter {
                     let content = fs.readFileSync(path.resolve(entry, filePath), 'utf8');
                     let key = filePath.replace(path.sep, '_').replace('.svg', '');
 
-                    this.logger.verbose(key);
+                    this.transforms.forEach(transform => {
+                        content = transform.getResult(content);
+                    });
 
                     this.addValue(this.categories, Categories.GRAPHIC, key, content);
                 });
