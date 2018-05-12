@@ -1,4 +1,4 @@
-# Resource Sentry
+# <img src='./doc/logo.svg' alt='Recource Sentry Logo' height='140' />
 
 Bring static resources (SCSS, JSON, XML) to JavaScript.
 
