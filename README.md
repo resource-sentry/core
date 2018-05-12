@@ -7,6 +7,7 @@
 
 Bring static resources (SCSS, JSON, XML, Property Files, etc.) to JavaScript.
 The modular architecture where every static resource could be interpreted differently.
+
 ## Table of contents:
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -17,6 +18,7 @@ The modular architecture where every static resource could be interpreted differ
 - [Readers](#readers)
   - [Properties](#properties)
   - [SCSS](#scss)
+  - [SVG](#svg)
 - [Writers](#writers)
   - [ES2015](#es2015)
 - [Configuration](#configuration)
@@ -87,6 +89,34 @@ Rs.getResource(Rs.Value.PRF_VALUE_ONE_HUNDRED); // Return 100
 Rs.getResource(Rs.Dimension.BREAKPOINT); // Return 768
 Rs.getResource(Rs.Dimension.RHYTHM); // Return 4
 Rs.getResource(Rs.Dimension.PADDING_S); // Return 8
+```
+
+### SVG
+
+Recursively walks through file-system and builds optimized SVG snippets ready to be injected in HTML.
+
+**Configuration**:
+
+- `entry`, path to a directory with SVG files.
+
+Example:
+
+```
+-- [images]
+---- logo.svg
+---- header.svg
+---- [media]
+------ play.svg
+------ stop.svg
+```
+
+SVG files will be optimized and added into `rs.js` file ready for use in production code.
+
+```js
+import Rs from './rs';
+
+Rs.getResource(Rs.Graphic.LOGO); // Returns XML code for the "logo.svg" asset
+Rs.getResource(Rs.Graphic.MEDIA_STOP); // Returns XML code for the "stop.svg" asset
 ```
 
 ## Writers
