@@ -6,6 +6,7 @@ class TransformBasic {
         this.verboseTags = /<(title|desc)>.*<\/\1>/g;
         this.idContent = /\sid=.*?\s/g;
         this.responsive = /\s(width|height)=\S*/g;
+        this.namespaces = /\sxmlns:\S+["']/g;
     }
 
     getResult(content) {
@@ -15,6 +16,7 @@ class TransformBasic {
             .replace(this.verboseTags, '')
             .replace(this.idContent, match => match.toLowerCase())
             .replace(this.responsive, '')
+            .replace(this.namespaces, '')
             .replace(this.formatting, '');
     }
 }
