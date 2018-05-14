@@ -18,7 +18,6 @@ The modular architecture where every static resource could be interpreted differ
 - [Configuration](#configuration)
   - [Config](#config)
   - [Settings](#settings)
-- [Architecture Ideas](#architecture-ideas)
 - [Convention](#convention)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -51,10 +50,6 @@ Required. Determines about readers and writers.
 Optional. Determines behavior of the tool.
 
 - `watch <Boolean|Object>`, enables file watcher for reader inputs. Object could be used to provide `Chokidar` options.
-
-## Architecture Ideas
-
-![Architecture Scheme](doc/overall-idea-map.png)
 
 ## Convention
 
