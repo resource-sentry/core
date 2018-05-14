@@ -1,4 +1,4 @@
-# <img src='./doc/logo.svg' alt='Recource Sentry Logo' height='140' />
+# <img src='./identity/logo.svg' alt='Recource Sentry Logo' height='140' />
 
 ![Version](https://img.shields.io/npm/v/resource-sentry.svg)
 [![Travis](https://img.shields.io/travis/NicolasSiver/resource-sentry.svg)](https://travis-ci.org/NicolasSiver/resource-sentry)
