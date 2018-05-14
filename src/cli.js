@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 const Promise   = require('bluebird'),
+      Logger    = require('@resource-sentry/utils/lib/logger'),
       parseArgs = require('minimist');
 
 const resourceSentry = require('./index'),
-      Logger         = require('./util/logger'),
       Manifest       = require('./manifest');
 
 const packageJson = require('../package');

@@ -1,7 +1,7 @@
-const Promise = require('bluebird');
+const Promise = require('bluebird'),
+      Logger  = require('@resource-sentry/utils/lib/logger');
 
 const Conductor    = require('./conductor'),
-      Logger       = require('./util/logger'),
       WatchService = require('./service/watch-service');
 
 class Core {

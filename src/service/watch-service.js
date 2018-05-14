@@ -1,10 +1,10 @@
 const chalk        = require('chalk'),
       {FSWatcher}  = require('chokidar'),
-      EventEmitter = require('eventemitter3');
+      EventEmitter = require('eventemitter3'),
+      Logger       = require('@resource-sentry/utils/lib/logger');
 
-const Events = require('../model/events');
-const Logger = require('../util/logger');
-const WatcherEvents = require('../model/watcher-events');
+const Events        = require('../model/events'),
+      WatcherEvents = require('../model/watcher-events');
 
 class WatchService extends EventEmitter {
     constructor(options = null) {
