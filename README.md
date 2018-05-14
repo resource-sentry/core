@@ -1,8 +1,6 @@
 # <img src='./identity/logo.svg' alt='Recource Sentry Logo' height='140' />
 
 ![Version](https://img.shields.io/npm/v/resource-sentry.svg)
-[![Travis](https://img.shields.io/travis/NicolasSiver/resource-sentry.svg)](https://travis-ci.org/NicolasSiver/resource-sentry)
-[![Coverage Status](https://coveralls.io/repos/github/NicolasSiver/resource-sentry/badge.svg?branch=master)](https://coveralls.io/github/NicolasSiver/resource-sentry?branch=master)
 ![Dependencies](https://david-dm.org/NicolasSiver/resource-sentry.svg)
 
 Bring static resources (SCSS, JSON, XML, Property Files, etc.) to JavaScript.
