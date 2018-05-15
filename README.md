@@ -1,7 +1,7 @@
 # <img src='./identity/logo.svg' alt='Recource Sentry Logo' height='140' />
 
-![Version](https://img.shields.io/npm/v/resource-sentry.svg)
-![Dependencies](https://david-dm.org/NicolasSiver/resource-sentry.svg)
+![Version](https://img.shields.io/npm/v/@resource-sentry/core.svg)
+![Dependencies](https://david-dm.org/resource-sentry/core.svg)
 
 Bring static resources (SCSS, JSON, XML, Property Files, etc.) to JavaScript.
 The modular architecture where every static resource could be interpreted differently.
