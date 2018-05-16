@@ -1,11 +1,9 @@
 const path    = require('path'),
       Promise = require('bluebird');
 
-const Constants = require('./model/constants');
-
 class Manifest {
     loadDefault() {
-        return this.loadManifest(Constants.MANIFEST);
+        return this.loadManifest('rs.config.js');
     }
 
     loadManifest(manifestPath) {
