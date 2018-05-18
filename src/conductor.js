@@ -29,6 +29,7 @@ class Conductor {
             this.writeNow(() => {
                 // Start invalidation process if there was postponed data for a write
                 if (this.dataPostponed === true) {
+                    this.dataPostponed = false;
                     this.invalidate();
                 }
             });
@@ -82,8 +83,9 @@ class Conductor {
             resourceData.mergeData(reader.getAllCategories());
         });
 
-        this.dataPostponed = false;
-        this.writer.write(resourceData.getOutput(), done);
+        this.writer
+            .write(resourceData.getOutput())
+            .then(() => done());
     }
 }
 
