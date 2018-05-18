@@ -4,7 +4,7 @@
     "description": "Bring static resources to JavaScript.",
     "main": "./src/index.js",
     "bin": {
-        "rs": "src/cli.js"
+        "resource-sentry": "src/cli.js"
     },
     "scripts": {
         "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
