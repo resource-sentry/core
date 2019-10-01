@@ -39,7 +39,7 @@
         "jest": "^22.4.2"
     },
     "dependencies": {
-        "@resource-sentry/utils": "^1.0.0",
+        "@resource-sentry/utils": "^1.1.1",
         "bluebird": "^3.5.1",
         "chalk": "2.3.2",
         "chokidar": "2.0.2",
